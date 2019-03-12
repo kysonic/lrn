@@ -1,0 +1,39 @@
+<template id="myMessageTemplate">
+    <style>
+        :host {
+            color: black;
+        }
+
+        :host([error]) {
+            color: red;
+        }
+        ::content span{
+            color: blue;
+        }
+    </style>
+    <div class="container">
+        <h1>Title</h1>
+        <content id="content"></content>
+    </div>
+</template>
+
+<script>
+    const localDocument = document.currentScript.ownerDocument;
+    const template = localDocument.getElementById('myMessageTemplate');
+
+    const MessageProto = Object.create(HTMLInputElement.prototype, {
+        createdCallback: {
+            value() {
+                this.root = this.createShadowRoot();
+                this.addEventListener('click', function () {
+                    alert('clicked');
+                });
+                this.root.appendChild(template.content.cloneNode(true));
+            }
+        }
+    });
+
+    document.registerElement('my-message', {
+        prototype: MessageProto
+    });
+</script>

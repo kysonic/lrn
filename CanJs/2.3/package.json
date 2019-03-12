@@ -1,0 +1,12 @@
+{
+  "name": "can23",
+  "version": "0.0.1",
+  "description": "A StealJS + CanJS example",
+  "main": "main",
+  "author": "Bitovi",
+  "license": "MIT",
+  "dependencies": {
+    "can": "^2.2.5",
+    "steal": "^0.9.3"
+  }
+}

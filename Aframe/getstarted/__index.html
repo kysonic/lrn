@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AFrame Getting Started</title>
+    <script src="./build.js" type="text/javascript"></script>
+    <style>
+        body {
+            background: #96eef4;
+        }
+    </style>
+</head>
+<body>
+    <a-scene physics>
+        <a-box id="box"
+               position="0 5 -3"
+               rotation="0 45 20"
+               width="1"
+               height="1"
+               event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
+               event-set__leave="_event: mouseleave;  _target: #cylinderText; visible: false"
+               change-color-on-hover="color: red"
+               daydream-controls="hand: right"
+               color="#aacc22" dynamic-body></a-box>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"
+                 event-set__down="_event: mousedown; material.wireframe: true"
+                 event-set__up="_event: mouseup; material.wireframe: false"
+                 event-set__leave="_event: mouseleave; material.wireframe: false"
+                 static-body></a-plane>
+        <a-sky color="#96eef4"></a-sky>
+        <a-text id="cylinderText" value="This is a box" align="center" color="#FFF" visible="false" position="0 4 -10"
+                geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+    </a-scene>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<template id="uiMessageTemplate">
+    <style>
+        :host {
+            background: red;
+        }
+        .content {
+            color: red;
+        }
+    </style>
+    <div class="content">
+        <slot></slot>
+    </div>
+</template>
+
+<script>
+    class UiMessage extends HTMLElement {
+        constructor(){
+            super();
+            const tpl = document.currentScript.ownerDocument.getElementById('uiMessageTemplate');
+            // Attach shadow
+            let shadowRoot = this.attachShadow({mode: 'open'});
+            shadowRoot.appendChild(tpl.content.cloneNode(true));
+            // Bind events
+            this.addEventListener('click', e => {
+                if (this.disabled) return;
+                this.readMessage();
+            });
+        }
+        static get observedAttributes() {
+            return ['disabled'];
+        }
+        connectedCallback(){
+            console.log('connectedCallback');
+        }
+        disconnectedCallback(){
+            console.log('disconnectedCallback');
+        }
+        attributeChangedCallback(attrName,oldValue,newValue) {
+            console.log(attrName,oldValue,newValue);
+        }
+        get isRead(){
+            return this.read;
+        }
+        get disabled() {
+            return this.hasAttribute('disabled');
+        }
+        set disabled(val) {
+            val ? this.setAttribute('disabled', '') : this.removeAttribute('disabled');
+        }
+        readMessage(){
+            this.read = true;
+        }
+    }
+    window.customElements.define('ui-message', UiMessage);
+</script>

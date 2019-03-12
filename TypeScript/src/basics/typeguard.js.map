@@ -1,0 +1,1 @@
+{"version":3,"file":"typeguard.js","sourceRoot":"","sources":["typeguard.ts"],"names":[],"mappings":"AAAA,qBAAqB,CAAkB;IACnC,IAAI,OAAO,CAAC,KAAK,QAAQ,EAAE,EAAE,8DAA8D;QACvF,uEAAuE;QACvE,OAAO,CAAC,GAAG,CAAC,CAAC,CAAC,MAAM,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,KAAK;KAClC;IACD,qEAAqE;AACzE,CAAC"}
