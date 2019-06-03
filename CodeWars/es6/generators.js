@@ -23,6 +23,10 @@ for(let val of a) {
     console.log(val);
 }
 
+for(var prop in {a: 1, b: 2}) {
+    console.log(prop)
+}
+
 /** generator example **/
 const asyncCall = new Promise((resolve,reject)=>setTimeout(()=>resolve('Result'+Math.random()),Math.random()+1000));
 const asyncCall2 = new Promise((resolve,reject)=>setTimeout(()=>resolve('Result'+Math.random()),Math.random()+1500));
