@@ -1,29 +1,68 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <md-toolbar color="primary" class="expanded-toolbar">
+        <span class="branding">
+            <md-button><router-link to="/"><md-icon>home</md-icon></router-link></md-button>
+            <md-button><router-link to="/search"><md-icon>search</md-icon></router-link></md-button>
+        </span>
+        <md-button v-if="authenticated" v-on:click="logout" id="logout-button"> Logout </md-button>
+        <md-button v-else v-on:click="$auth.loginRedirect()" id="login-button"> Login </md-button>
+        <md-menu md-direction="bottom-start">
+            <md-button md-menu-trigger>
+                <md-icon>menu</md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <router-link to="/">Home</router-link>
+                </md-menu-item>
+                <md-menu-item>
+                    <router-link to="/search">Search</router-link>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        </md-toolbar>
+        <router-view/>
     </div>
-    <router-view />
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script lang="ts">
+    import { Component, Vue, Watch } from 'vue-property-decorator';
+
+    @Component
+    export default class App extends Vue {
+        title = "Vue Books";
+        public authenticated: boolean = false;
+
+        private created() {
+            this.isAuthenticated();
+        }
+
+        @Watch('$route')
+        private async isAuthenticated() {
+            this.authenticated = await this.$auth.isAuthenticated();
+        }
+
+        private async logout() {
+            await this.$auth.logout();
+            await this.isAuthenticated();
+
+            // Navigate back to home
+            this.$router.push({path: '/'});
+        }
     }
-  }
-}
+</script>
+
+<style>
+    #app {
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    .branding {
+        flex: 1;
+        text-align: left;
+    }
+
+    h1 {
+        text-align: center;
+    }
 </style>
