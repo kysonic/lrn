@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "parcel ./index.html"
+  },
+  "dependencies": {
+    "idb": "^4.0.3"
+  }
+}
