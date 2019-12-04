@@ -1,3 +1,3 @@
-import './mobx-utils';
+import './atom';
 
 
