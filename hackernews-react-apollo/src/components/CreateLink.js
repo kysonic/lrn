@@ -19,7 +19,6 @@ const CreateLink = ({history}) => {
     const [createPost, { data }] = useMutation(POST_MUTATION, {
         onCompleted: () => {
             history.push('/');
-            window.refetchLinks && window.refetchLinks();
         }
     });
 

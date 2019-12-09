@@ -10,8 +10,16 @@ const FEED_QUERY = gql`
                 id
                 url
                 description
+                createdAt
                 postedBy {
+                    name
                     email
+                }
+                votes {
+                    id
+                    user {
+                        id
+                    }
                 }
             }
         }
@@ -19,9 +27,16 @@ const FEED_QUERY = gql`
 `;
 
 const LinkList = () => {
-    const { loading, error, data, refetch } = useQuery(FEED_QUERY);
+    const { loading, error, data } = useQuery(FEED_QUERY);
 
-    window.refetchLinks = refetch;
+    const updateCacheAfterVote = (store, createVote, linkId) => {
+        const data = store.readQuery({ query: FEED_QUERY });
+
+        const votedLink = data.feed.links.find(link => link.id === linkId);
+        votedLink.votes = createVote.link.votes;
+
+        store.writeQuery({ query: FEED_QUERY, data });
+    };
 
     if (loading) {
         return (
@@ -35,8 +50,13 @@ const LinkList = () => {
         )
     }
 
-    return data.feed.links.map((link, id) => (
-        <Link key={id} {...link} />
+    return data.feed.links.map((link, index) => (
+        <Link
+            key={link.id}
+            {...link}
+            index={index}
+            updateStoreAfterVote={updateCacheAfterVote}
+        />
     ));
 };
 
