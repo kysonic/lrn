@@ -37,7 +37,7 @@ async function post(parent, args, context, info) {
         url: args.url,
         description: args.description,
         postedBy: { connect: { id: userId } },
-    })
+    });
 }
 
 async function vote(parent, args, context) {
