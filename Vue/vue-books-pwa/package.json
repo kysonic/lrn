@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@types/vue-material": "git+https://github.com/calebsander/vue-material-types.git",
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "axios-extensions": "3.0.4",
     "core-js": "^2.6.5",
     "register-service-worker": "^1.6.2",
